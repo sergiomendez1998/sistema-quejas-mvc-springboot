@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org/"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+    <title>Ingreso de quejas</title>
+</head>
+<body style=" background-color:black;">
+<header  th:replace="plantilla/plantillaQueja::header"></header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<hr class="solid">
+
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong>Hola señor cuenta Habiente!</strong> para poder hacer una consulta por favor Ingrese correctamente su correlativo  <i class="fas fa-info-circle"></i>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show" th:if="${mensaje !=null}"  role="alert">
+    <strong th:text="${mensaje}"></strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show" th:if="${mensajetrue !=null}"  role="alert">
+    <strong th:text="${mensajetrue}"></strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+
+<div class="card" style="background-color: black;color: white; position: center;">
+
+
+    <div class="card-body">
+
+        <i class="fas fa-search"></i> <span>Buscar quejas </span>
+
+        <br>
+        <br>
+        <form  th:action="@{/search}" method="GET" class=" row g-3 was-validated" >
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" id="search" class="form-control" th:name="search" name="search" required/>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+
+        <div th:if="${QuejasCuentaHabiente!=null}">
+        <div class="card">
+            <div class="card-body">
+
+                <table class="table table-stryped">
+                    <thead class="table-dark">
+
+
+                    <th>ID</th>
+                    <th>Correlativo</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>telefono</th>
+                    <th>Tipo Queja</th>
+                    <th>Estado Interno</th>
+                    <th>Estado Externo</th>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${QuejasCuentaHabiente.idQueja}"></td>
+                        <td th:text="${QuejasCuentaHabiente.correlativo}"></td>
+                        <td th:text="${QuejasCuentaHabiente.nombre}"></td>
+                        <td th:text="${QuejasCuentaHabiente.correo}"></td>
+                        <td th:text="${QuejasCuentaHabiente.telefono}"></td>
+                        <td th:text="${QuejasCuentaHabiente.tipoQueja.siglas}"></td>
+                        <td th:text="${QuejasCuentaHabiente.estadoInterno}"></td>
+                        <td th:text="${QuejasCuentaHabiente.estadaExterno}"></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+    </div>
+</div>
+
+</body>
+</html>

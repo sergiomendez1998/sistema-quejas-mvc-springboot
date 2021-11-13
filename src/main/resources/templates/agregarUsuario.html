@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+
+    <title>Agregar Nuevo Usuario</title>
+</head>
+<body>
+
+<header  th:replace="plantilla/plantilla::header"></header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="alert alert-primary" th:if="${mensaje !=null}" role="alert">
+    <label th:text="${mensaje}"></label>
+</div>
+
+<div class="card">
+    <a class="btn btn-danger" th:href="@{/}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+    <div class="card-body">
+
+        <i class="fas fa-user-plus"></i> <span> AGREGAR NUEVO USUARIO</span>
+
+        <form th:action="@{/guardarUsuario}" method="POST" th:object="${usuario}" class=" row g-3 was-validated">
+            <input type="hidden" name="idUsuario" th:field="*{idUsuario}"/>
+            <div class="col-md-4">
+                <label for="dpi" class="form-label">DPI</label>
+                <input type="text" class="form-control" id="dpi" minlength="13" maxlength="14" name="dpi" th:field="*{dpi}" required placeholder="0000-00000-0000">
+            </div>
+
+       <div class="col-md-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre"  th:field="*{nombre}" required="true">
+       </div>
+
+
+            <div class="col-md-4">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo"  th:field="*{email}"  required placeholder="ejemplo@ejemplo.com">
+            </div>
+
+            <div class="col-md-4">
+                <label for="username" class="form-label">Username</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <input type="text" class="form-control" id="username" aria-describedby="inputGroupPrepend" th:field="*{username}" required>
+                </div>
+            </div>
+
+
+
+    <div class="col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password"  th:field="*{password}"  required>
+    </div>
+
+            <div class=" col-md-3">
+                <label for="inputCargo">Cargo</label>
+                <select th:field="*{cargo}" id="inputCargo" class="form-control" required>
+                    <option selected enable value="">Choose...</option>
+                    <option th:each="cargo : ${cargos}" th:text="${cargo.nombre}"  th:value="${cargo.IdCargo}"></option>
+                </select>
+            </div>
+
+
+<!--            <div class=" col-md-3">-->
+<!--                <label class="col-4 col-form-label">Rol: </label>-->
+<!--                <div class="col-8">-->
+<!--                    <th:block th:each="role: ${roles}">-->
+<!--                        <input type="checkbox"-->
+<!--                               th:text="${role.nombre}" th:value="${role.idRol}"  th:field="${roles}" class="m-2" />-->
+<!--                    </th:block>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+            <div class="col-md-4">
+                <label for="inputRegion">Region</label>
+                <select  th:field="*{region}" id="inputRegion" class="form-control" required>
+                    <option selected enable value="">Choose...</option>
+                    <option th:each="region : ${regiones}" th:text="${region.nombre}"  th:value="${region.idRegion}"></option>
+                </select>
+            </div>
+
+
+            <div class=" col-md-3">
+                <label for="inputPunto">Punto</label>
+                <select th:field="*{punto}" id="inputPunto" class="form-control" required="true">
+                    <option selected enable value="">Choose...</option>
+                    <option th:each="punto : ${puntos}" th:text="${punto.nombre}"  th:value="${punto.IdPunto}"></option>
+                </select>
+            </div>
+
+
+            <div class=" col-md-4">
+                <label for="inputEstado">Estado</label>
+                <select  th:field="*{estado}" id="inputEstado" class="form-control" required="true">
+                    <option th:each="estado : ${estado}" th:text="${estado.nombre}"  th:value="${estado.idEstado}"></option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" id="submit" class="btn btn-primary"> <i class="fas fa-save"></i> Guardar </button>
+                <a class="btn btn-warning" th:href="@{/listaUsuarios}" role="button"> <i class="fas fa-window-close"></i>Cancelar</a>
+    </div>
+</form>
+</div>
+</div>
+<header th:replace="plantilla/plantilla ::footer"></header>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="jquery.1.7.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+<script>
+    $(document).ready(function($){
+        $("#dpi").mask("9999-99999-9999");
+    });
+</script>
+<script>
+    function validar(){
+        event.preventDefault();
+        var nombre = document.getElementById('nombre').value;
+        Swal.fire({
+            title: 'Desea guardar el usuario de: '+nombre+'?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: "No",
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.value) {
+                if (result.isConfirmed) {
+                    Swal.fire('Guardado Correctamente', '', 'success')
+                }
+                document.form_queja.submit();
+                document.getElementById('nombre').value="";
+            }
+            return false;
+        })
+    }
+</script>
+</body>
+</html>

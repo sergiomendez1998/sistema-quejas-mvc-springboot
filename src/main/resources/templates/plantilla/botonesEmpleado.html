@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Agregar Cliente</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+<section th:fragment="BotonesEmpleado">
+    <br>
+
+        <div class="col-md-12">
+            <div class="card text-right bg-danger text-black mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">MANEJO DE QUEJAS PARA EL CUENTAHABIENTE</h5>
+                        <p class="card-text">Registro de quejas recibidas por el receptor de quejas. Vista de las quejas ya ingresadas</p>
+                        <a th:href="@{/listaQuejaCuentaHabiente}" class="btn btn-warning"> <i class="fas fa-list-ul"></i> Ver Quejas</a>
+                        <a th:href="@{/agregarQuejaEmpleado}" class="btn btn-primary"> <i class="fas fa-book"></i> Ingresar Queja</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Cliente</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+
+<section th:fragment="Botones">
+  <br>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card text-right bg-success text-black mb-3">
+      <div class="card">
+        <div class="card-header">
+       Control de Usuario
+        </div>
+        <div class="card-body">
+
+          <p class="card-text">Ingreso de un nuevo Usuario. Control de todos los Usuarios ya registrados</p>
+
+          <a th:href="@{/agregarUsuario}" class="btn btn-primary"> <i class="fas fa-user-plus"></i> nuevo</a>
+          <a th:href="@{/listaUsuarios}" class="btn btn-warning"> <i class="fas fa-list-ul"></i> Ver Usuarios</a>
+
+        </div>
+      </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-3">
+      <div class="card text-right bg-primary text-black mb-3">
+      <div class="card">
+        <div class="card-header">
+          Control de Puntos
+        </div>
+        <div class="card-body">
+
+          <p class="card-text">Ingreso de un nuevo punto de atencion. Control de las regiones ya registradas</p>
+          <a th:href="@{/agregarPunto}" class="btn btn-primary"> <i class="fas fa-house-user"></i> nuevo</a>
+          <a th:href="@{/listaPuntos}" class="btn btn-warning"> <i class="fas fa-list-ul"></i> Ver Puntos</a>
+        </div>
+      </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-right bg-danger text-black mb-3">
+      <div class="card">
+        <div class="card-header">
+         Control de Quejas
+        </div>
+        <div class="card-body">
+
+          <p class="card-text">Control de las quejas ya ingresadas por parte del receptor</p>
+
+<!--          <a href="#" class="btn btn-primary"> <i class="fas fa-book"></i> nuevo</a>-->
+
+          <a th:href="@{/listaQuejaCuentaHabiente}" class="btn btn-warning"> <i class="fas fa-list-ul"></i> Ver Quejas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+      <div class="col-sm-3">
+          <div class="card text-right bg-warning text-black mb-3">
+              <div class="card">
+                  <div class="card-header">
+                      Control de Tipos de Quejas
+                  </div>
+                  <div class="card-body">
+
+                      <p class="card-text">Manejo de los tipos de cuenta existentes</p>
+
+
+                      <a th:href="@{/listaTipoQuejas}" class="btn btn-warning"> <i class="fas fa-list-ul"></i> Ver Regiones</a>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</section>
+</body>
+</html>

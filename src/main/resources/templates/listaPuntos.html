@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style=" background-color:grey">
+<header  th:replace="plantilla/plantilla::header"></header>
+<div class="alert alert-danger" th:if="${mensaje !=null}" role="alert">
+    <label th:text="${mensaje}"><span aria-hidden="true">&times;</span></label>
+
+
+</div>
+<hr class="solid">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+
+                    <h4>Listado de Puntos</h4>
+                    <a th:href="@{/agregarPunto}" class="btn btn-primary"> <i class="fas fa-house-user"></i> nuevo</a>
+                    <a class="btn btn-danger" th:href="@{/}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <table class="table table-stryped"  id="puntos">
+                            <thead class="table-dark">
+
+<!--                            <th>ID</th>-->
+                            <th>Nombre</th>
+                            <th>Region</th>
+                            <th>Estado</th>
+                            <th>Accion</th>
+                                                        <!--                                <th>Role</th>-->
+                            <!--                                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.accion}]]</th>-->
+                                <th>Accion</th>
+
+                            </thead>
+                            <tbody>
+                            <tr  th:each="punto : ${puntos}">
+                                <td th:text="${punto.idPunto}"></td>
+                                <td th:text="${punto.nombre}"></td>
+                                <td th:text="${punto.region.nombre}"></td>
+                                <td th:text="${punto.estado.nombre}"></td>
+                                <td>
+                                    <a  th:href=" @{/editar/} + ${punto.idPunto}"   class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a  class="btn btn-danger" th:href="@{/eliminar(idPunto=${punto.idPunto})}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-primary text-white mb-3">
+                <div class="card-body">
+                    <h3>Puntos de Atencion</h3>
+                    <h4 class="display-4">
+                        <i class="fas fa-house-user"></i> [[${totalPuntos}]]
+                    </h4>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<header th:replace="plantilla/plantilla ::footer"></header>
+</body>
+</html>

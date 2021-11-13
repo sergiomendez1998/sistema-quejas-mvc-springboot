@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+
+    <title>Agregar Nuevo Punto</title>
+</head>
+<body>
+
+<header  th:replace="plantilla/plantilla::header"></header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<br>
+<div class="card">
+    <a class="btn btn-danger" th:href="@{/}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+    <div class="card-body">
+
+        <i class="fas fa-house-user"></i> <span>AGREGAR NUEVO PUNTO DE ATENCION</span>
+        <br>
+        <br>
+        <form th:action="@{/guardarPunto}" name="form_punto" method="POST" th:object="${punto}" class="was-validated" onsubmit="return validar()">
+            <input type="hidden" name="id"  th:field="*{idPunto}">
+            <div class="mb-2">
+                <label for="nombre" class="form-label">Nombre Punto:</label>
+                <input type="text"    class="form-control" id="nombre"  th:field="*{nombre}" required ="true"/>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="inputEstado">Estado</label>
+                <select  th:field="*{estado}" id="inputEstado" class="form-control" required="true">
+                    <option th:each="estado : ${estado}" th:text="${estado.nombre}"  th:value="${estado.idEstado}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="inputRegion">Region</label>
+                <select  th:field="*{region}" id="inputRegion" class="form-control" required="true">
+                    <option selected enable value="">Choose...</option>
+                    <option th:each="region : ${regiones}" th:text="${region.nombre}"  th:value="${region.idRegion}"></option>
+                </select>
+            </div>
+
+            <br>
+            <button type="submit"  id="btn_submit" value="validar" class="btn btn-primary"> <i class="fas fa-save"></i> Guardar </button>
+            <a class="btn btn-warning" th:href="@{/listaPuntos}" role="button"> <i class="fas fa-window-close"></i>Cancelar</a>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+
+<header th:replace="plantilla/plantilla ::footer"></header>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+
+   function validar(){
+       event.preventDefault();
+       var nombre = document.getElementById('nombre').value;
+       Swal.fire({
+           title: 'Desea guardar los datos del Punto: '+nombre +'?',
+           type: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Si',
+           cancelButtonText: "No",
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+       }).then((result) => {
+           if (result.value) {
+               document.form_punto.submit();
+               document.getElementById('nombre').value="";
+           }
+           return false;
+       })
+
+
+   }
+
+</script>
+
+</body>
+</html>

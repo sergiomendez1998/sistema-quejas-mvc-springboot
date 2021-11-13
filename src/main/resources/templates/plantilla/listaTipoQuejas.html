@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style=" background-color:grey">
+<section th:fragment="listadoTipoQueja" id="tipoqueja">
+
+    <div class="alert alert-info " th:if="${mensaje2 !=null}" role="alert">
+        <label th:text="${mensaje2}"></label>
+    </div>
+
+    <hr class="solid">
+    <div class="row" style="text-align:center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>LISTADO DE TIPOS DE QUEJA<h4>
+
+
+                    <a class="btn btn-primary" th:href="@{/agregarTipoQueja}" role="button"> <i class="fas fa-plus"></i>  Nuevo</a>
+                    <a class="btn btn-danger" th:href="@{/}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <table class="table table-stryped"  id="tipoquejas">
+                            <thead class="table-dark">
+
+                            <th>ID</th>
+                            <th>SIGLAS</th>
+                            <th>DESCRIPCION</th>
+                            <th>ESTADO</th>
+                            <th>ACCIONES</th>
+
+                            </thead>
+                            <tbody>
+                            <tr  th:each="tipoqueja : ${tipoquejas}">
+                                <td th:text="${tipoqueja.idTipo}"></td>
+                                <td th:text="${tipoqueja.siglas}"></td>
+                                <td th:text="${tipoqueja.descripcion}"></td>
+                                <td th:text="${tipoqueja.estado.nombre}"></td>
+
+                                <td>
+                                    <a  th:href=" @{/editarTipo/} + ${tipoqueja.idTipo}"   class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a  class="btn btn-danger" th:href="@{/eliminarTipoQueja(idTipo=${tipoqueja.idTipo})}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section th:fragment="listaQuejasCuentaHabiente" id="quejacuentahabiente">
+<!--    <div class="alert alert-danger" th:if="${mensaje !=null}" role="alert">-->
+<!--        <label th:text="${mensaje}"><span aria-hidden="true">&times;</span></label>-->
+<!--    </div>-->
+    <hr class="solid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>LISTADO DE QUEJAS CUENTA HABIENTE</h4>
+<!--                    <a th:href="@{/agregarUsuario}" class="btn btn-primary"> <i class="fas fa-user-plus"></i> nuevo</a>-->
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger" th:href="@{/}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+
+                    <a sec:authorize="hasRole('ROLE_RECEPTOR')" class="btn btn-danger" th:href="@{/indexReceptor}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+                    <a th:href="@{/listaQuejasEmpleado}" class="btn btn-primary"> <i class="fas fa-list-ul"></i> Ver ingresado por Empleados</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <table class="table table-stryped"  id="queja">
+                            <thead class="table-dark">
+
+
+                            <th>ID</th>
+                            <th>Correlativo</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>telefono</th>
+                            <th>Tipo Queja</th>
+
+
+                            <th sec:authorize="hasRole('ROLE_ADMIN')">Accion</th>
+
+                            </thead>
+                            <tbody>
+                            <tr  th:each="queja : ${quejaCuentaHabientes}">
+                                <td th:text="${queja.idQueja}"></td>
+                                <td th:text="${queja.correlativo}"></td>
+                                <td th:text="${queja.nombre}"></td>
+                                <td th:text="${queja.correo}"></td>
+                                <td th:text="${queja.telefono}"></td>
+                                <td th:text="${queja.tipoQueja.siglas}"></td>
+
+
+                                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a   class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a  class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style=" background-color:grey">
+<section th:fragment="listadoUsuarios" id="usuario">
+    <div class="alert alert-danger" th:if="${mensaje !=null}" role="alert">
+        <label th:text="${mensaje}"><span aria-hidden="true">&times;</span></label>
+    </div>
+<hr class="solid">
+<div class="row">
+    <div class="col-md-11">
+        <div class="card">
+            <div class="card-header">
+                <h4>LISTA USUARIOS</h4>
+                <a th:href="@{/agregarUsuario}" class="btn btn-primary"> <i class="fas fa-user-plus"></i> nuevo</a>
+                <a class="btn btn-danger" th:href="@{/}" role="button"> <i class="fas fa-backward"></i>  Regresar</a>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <table class="table table-stryped"  id="usuarios">
+                        <thead class="table-dark">
+
+
+                        <th>ID</th>
+                        <th>DPI</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Usuario</th>
+                        <th>Cargo</th>
+                        <th>Region</th>
+                        <th>Punto</th>
+                        <th>Estado</th>
+                        <th>Accion</th>
+                        <!--                                <th>Role</th>-->
+                        <!--                                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.accion}]]</th>-->
+
+                        </thead>
+                        <tbody>
+                        <tr  th:each="usuario : ${usuarios}">
+                            <td th:text="${usuario.IdUsuario}"></td>
+                            <td th:text="${usuario.dpi}"></td>
+                            <td th:text="${usuario.nombre}"></td>
+                            <td th:text="${usuario.email}"></td>
+                            <td th:text="${usuario.username}"></td>
+                            <td th:text="${usuario.cargo.nombre}"></td>
+                            <td th:text="${usuario.region.nombre}"></td>
+                            <td th:text="${usuario.punto.nombre}"></td>
+                            <td th:text="${usuario.estado.nombre}"></td>
+                            <td>
+                                <a  th:href=" @{/editarUsuario/} + ${usuario.idUsuario}"   class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a  class="btn btn-danger" th:href="@{/eliminarUsuario(idUsuario=${usuario.IdUsuario})}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body">
+                <h4>No.</h4>
+                <h4 class="display-4">
+                    <i class="fas fa-users"></i> [[${totalUsuarios}]]
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>
